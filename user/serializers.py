@@ -44,3 +44,8 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
 
         user.save()
         return user
+
+class UserProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        fields = ['id', 'username', 'email', 'profile_image']
+        read_only_fields = ['id', 'email']
