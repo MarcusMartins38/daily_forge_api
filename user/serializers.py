@@ -19,7 +19,7 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
         model = User
         fields = [
             'id', 'username', 'email',
-            'profile_image', 'password', 'confirm_password'
+            'profile_image', 'password', 'password_confirm'
         ]
         extra_kwargs = {
             'email': {'required': True}
@@ -47,5 +47,6 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
 
 class UserProfileSerializer(serializers.ModelSerializer):
     class Meta:
+        model = User
         fields = ['id', 'username', 'email', 'profile_image']
         read_only_fields = ['id', 'email']

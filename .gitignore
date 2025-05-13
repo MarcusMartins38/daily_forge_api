@@ -1,0 +1,66 @@
+# Python cache files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment (change 'venv' if yours is named differently)
+venv/
+env/
+
+# VS Code settings
+.vscode/
+
+# Django-specific
+db.sqlite3
+*.sqlite3
+media/
+staticfiles/
+static_root/
+local_settings.py
+.env
+
+# Migrations (optional, only if you're not tracking them)
+# **Caution**: Only ignore if you recreate them every time or manage them differently
+# */migrations/
+# !*/migrations/__init__.py
+
+# Compiled and temporary files
+*.log
+*.pot
+*.pyc
+*.pyo
+*.mo
+
+# OS-specific
+.DS_Store
+Thumbs.db
+
+# Coverage/testing
+.coverage
+htmlcov/
+coverage.xml
+nosetests.xml
+test_db.sqlite3
+
+# MyPy & Pyright
+.mypy_cache/
+.pyright/
+.dmypy.json
+
+# Pipenv/Poetry
+Pipfile.lock
+poetry.lock
+
+# JetBrains IDE (e.g., PyCharm)
+.idea/
+
+# Docker
+*.pid
+*.tar
+*.gz
+*.log
+
+# Build artifacts
+build/
+dist/
+*.egg-info/
