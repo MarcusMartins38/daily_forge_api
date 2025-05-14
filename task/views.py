@@ -61,3 +61,14 @@ class TaskViewSet(ModelViewSet):
         substask = task.subtasks.all()
         serializer = self.get_serializer(substask, many=True)
         return Response(serializer.data)
+
+    @action(detail=False, methods=['get'])
+    def overdue(self, request):
+        """Obter tarefas atrasadas"""
+        today = timezone.localdate()
+        tasks = self.get_queryset().filter(
+            due_date__date__lt=today,
+            is_completed=False
+        )
+        serializer = self.get_serializer(tasks, many=True)
+        return Response(serializer.data)
