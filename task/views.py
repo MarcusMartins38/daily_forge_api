@@ -55,3 +55,9 @@ class TaskViewSet(ModelViewSet):
         serializer = self.get_serializer(task)
         return Response(serializer.data)
 
+    @action(detail=True, methods=['get'])
+    def subtasks(self):
+        task = self.get_object()
+        substask = task.subtasks.all()
+        serializer = self.get_serializer(substask, many=True)
+        return Response(serializer.data)
