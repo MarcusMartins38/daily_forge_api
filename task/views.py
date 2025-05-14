@@ -1,6 +1,13 @@
+from crypt import methods
+from email.policy import default
+
+from django.core.serializers import serialize
+from django.utils import timezone
 from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework.decorators import action
 from rest_framework.filters import SearchFilter, OrderingFilter
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 
 from task.models import Task
@@ -29,4 +36,22 @@ class TaskViewSet(ModelViewSet):
             queryset = queryset.exclude(parent=None)
 
         return queryset
+
+    @action(detail=True, methods=['post'])
+    def complete(self):
+        task = self.get_object()
+        task.is_completed = True
+        task.completed_at = timezone.now()
+        task.save()
+        serializer = self.get_serializer(task)
+        return Response(serializer.data)
+
+    @action(detail=True, methods=['post'])
+    def uncomplete(self):
+        task = self.get_object()
+        task.is_completed = False
+        task.completed_at = None
+        task.save()
+        serializer = self.get_serializer(task)
+        return Response(serializer.data)
 
