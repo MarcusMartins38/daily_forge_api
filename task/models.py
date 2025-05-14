@@ -23,7 +23,7 @@ class Task(models.Model):
     )
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    parent = models.ForeignKey('self', null=True, blank=True, on_delete=models.CASCADE, related_name='subtask')
+    parent = models.ForeignKey('self', null=True, blank=True, on_delete=models.CASCADE, related_name='subtasks')
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -41,4 +41,4 @@ class Task(models.Model):
 
     @property
     def has_subtasks(self):
-        return self.subtask.exists()
+        return self.subtasks.exists()
