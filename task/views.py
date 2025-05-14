@@ -4,6 +4,7 @@ from email.policy import default
 from django.core.serializers import serialize
 from django.utils import timezone
 from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework import status
 from rest_framework.decorators import action
 from rest_framework.filters import SearchFilter, OrderingFilter
 from rest_framework.permissions import IsAuthenticated
@@ -36,6 +37,20 @@ class TaskViewSet(ModelViewSet):
             queryset = queryset.exclude(parent=None)
 
         return queryset
+
+    def perform_create(self, serializer):
+        task = serializer.save()
+        return task
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        task = self.perform_create(serializer)
+
+        # Use TaskSerializer to get the complete response with subtasks
+        response_serializer = TaskSerializer(task, context=self.get_serializer_context())
+        headers = self.get_success_headers(serializer.data)
+        return Response(response_serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
     @action(detail=True, methods=['post'])
     def complete(self):
