@@ -17,6 +17,7 @@ class TaskSerializer(serializers.ModelSerializer):
     has_subtasks = serializers.BooleanField(read_only=True)
 
     class Meta:
+        model = Task
         fields = [
             'id', 'title', 'description', 'is_completed',
             'due_date', 'priority', 'parent', 'is_subtask',
