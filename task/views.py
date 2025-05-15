@@ -21,6 +21,7 @@ class TaskViewSet(ModelViewSet):
     filterset_fields = ['is_completed', 'priority', 'due_date']
     search_fields = ['title', 'description']
     ordering_fields = ['due_date', 'priority', 'created_at', 'title']
+    ordering = ['-created_at']
 
     def get_serializer_class(self):
         if self.action == 'create':
@@ -39,7 +40,7 @@ class TaskViewSet(ModelViewSet):
         return queryset
 
     def perform_create(self, serializer):
-        task = serializer.save()
+        task = serializer.save(user=self.request.user)
         return task
 
     def create(self, request, *args, **kwargs):

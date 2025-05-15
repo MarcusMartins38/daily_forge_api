@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'django_filters',
 
     'user',
-    'task'
+    'task',
+    'habit'
 ]
 
 REST_FRAMEWORK = {

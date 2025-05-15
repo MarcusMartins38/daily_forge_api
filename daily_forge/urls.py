@@ -30,5 +30,6 @@ urlpatterns = [
 
     path('api/me/', UserProfileView.as_view(), name='user_profile'),
 
-    path('api/', include('task.urls'))
+    path('api/', include('task.urls')),
+    path('api/', include('habit.urls'))
 ]
