@@ -4,8 +4,8 @@ from rest_framework.filters import SearchFilter, OrderingFilter
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.viewsets import ModelViewSet
 
-from habit.models import Habit
-from habit.serializers import HabitSerializer
+from habit.models.habit import Habit
+from habit.serializers.habit import HabitSerializer
 
 
 class HabitViewSet(ModelViewSet):
