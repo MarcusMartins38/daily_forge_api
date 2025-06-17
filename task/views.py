@@ -54,7 +54,7 @@ class TaskViewSet(ModelViewSet):
         return Response(response_serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
     @action(detail=True, methods=['post'])
-    def complete(self):
+    def complete(self, request, pk=None):
         task = self.get_object()
         task.is_completed = True
         task.completed_at = timezone.now()
@@ -63,7 +63,7 @@ class TaskViewSet(ModelViewSet):
         return Response(serializer.data)
 
     @action(detail=True, methods=['post'])
-    def uncomplete(self):
+    def uncomplete(self, request, pk=None):
         task = self.get_object()
         task.is_completed = False
         task.completed_at = None
@@ -72,7 +72,7 @@ class TaskViewSet(ModelViewSet):
         return Response(serializer.data)
 
     @action(detail=True, methods=['get'])
-    def subtasks(self):
+    def subtasks(self, request, pk=None):
         task = self.get_object()
         substask = task.subtasks.all()
         serializer = self.get_serializer(substask, many=True)
